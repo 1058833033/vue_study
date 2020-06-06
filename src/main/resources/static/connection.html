@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>遍历</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" >
+        <h2 v-for="(student,index) in students" :title="student.name">
+            {{index+1}} {{student.name}}
+        </h2>
+        <input type="button" value="添加数据" @click="add"/>
+        <input type="button" value="移除数据" @click="remove"/>
+    </div>
+    <hr />
+
+    <script>
+        var app = new Vue({
+           el:"#app",
+           data:{
+               students:[
+                   {
+                       name:"陈杰",
+                       age:18,
+                       lovers:"fmx"
+                   },
+                   {
+                       name:"方明星",
+                       age: 18,
+                       lovers: "cj"
+                   }
+               ]
+           },
+            methods:{
+               add:function () {
+                    this.students.push({
+                        name:"方明星",
+                        age: 18,
+                        lovers: "cj"
+                    });
+               },
+                remove:function () {
+                    // 移除最左边的元素
+                    this.students.shift();
+                }
+            }
+        });
+    </script>
+
+
+
+    参数传递和事件修饰符
+    <hr/>
+    <div id="app1">
+        <input type="button" value="点击" @click="doIt('陈杰',18)" />
+        <input type="text" @keyup.enter="sayHi" />
+    </div>
+    <hr/>
+    <script>
+        var app1 = new Vue({
+            el:"#app1",
+            methods: {
+                doIt:function (p1,p2) {
+                    alert(p1 + p2);
+                },
+                sayHi:function () {
+                    alert("你好");
+                }
+            }
+        });
+    </script>
+
+
+    <div id="app2">
+        v-model表单数据的双向绑定(更改任一方的数据都会同步)<br>
+        <input type="text" v-model="message" @keyup.enter="getM"/>
+        <h2>{{message}}</h2>
+        <input type="button" value="点我改变message" @click="setM" />
+    </div>
+
+    <script>
+        var app2 = new Vue({
+            el:"#app2",
+            data:{
+                message:"v-model使用"
+            },
+            methods:{
+                getM:function () {
+                    alert(this.message);
+                },
+                setM:function () {
+                    this.message = "改变啦";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
